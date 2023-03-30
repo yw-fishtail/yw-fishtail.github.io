@@ -10,3 +10,5 @@
 *.sqlite
 .vs/VSWorkspaceState.json
 .vs/yw-fishtail.github.io/FileContentIndex/read.lock
+.vs/yw-fishtail.github.io/v17/.suo
+.vs/yw-fishtail.github.io/config/applicationhost.config
