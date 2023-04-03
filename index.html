@@ -28,27 +28,27 @@
                 <!--grid layout of all the apps-->
                 <div class="desktop-flex">
                     <!--every flex app consist of an app icon and app name-->
-                    <button class="flex-app">
+                    <button class="flex-app" onclick="openWindow('skills-panel')">
                         <div class="flex-app-icon skills-btn"></div>
                         <p>Skills</p>
                     </button>
-                    <button class="flex-app">
+                    <button class="flex-app" onclick="openWindow('exp-panel')">
                         <div class="flex-app-icon exp-btn"></div>
                         <p>Experience</p>
                     </button>
-                    <button class="flex-app">
+                    <button class="flex-app" onclick="openWindow('edu-panel')">
                         <div class="flex-app-icon edu-btn"></div>
                         <p>Education</p>
                     </button>
-                    <button class="flex-app">
+                    <button class="flex-app" onclick="openWindow('cert-panel')">
                         <div class="flex-app-icon cert-btn"></div>
                         <p>Awards & Certifications</p>
                     </button>
-                    <button class="flex-app">
+                    <button class="flex-app" onclick="openWindow('contact-panel')">
                         <div class="flex-app-icon contact-btn"></div>
                         <p>Contact</p>
                     </button>
-                    <button class="flex-app">
+                    <button class="flex-app" onclick="openWindow('hobby-panel')">
                         <div class="flex-app-icon hobby-btn"></div>
                         <p>Hobby</p>
                     </button>
@@ -108,11 +108,11 @@
             <!--skills popup panel - skills showcase-->
             <div class="popup window" id="skills-panel">
                 <!--top bar of the skills panel-->
-                <div class="window-top-bar">
+                <div class="window-top-bar" id="skills-panel-header">
                     <!--standardized top bar for all windows popup-->
                     <!--file icon - file name-->
                     <div class="left">
-                        <img src="./visual_aids/skillsIcon.png" alt="skills icon" />
+                        <div class="panel-icon skills-btn"></div>
                         <p>Skills</p>
                     </div>
                     <!--minimise btn - close btn-->
@@ -121,6 +121,106 @@
                     </div>
                 </div>
                 <!--content box of the skills panel-->
+                <div class="window-content">
+                </div>
+            </div>
+
+            <!--exp popup panel - exp showcase-->
+            <div class="popup window" id="exp-panel">
+                <!--top bar of the exp panel-->
+                <div class="window-top-bar" id="exp-panel-header">
+                    <!--standardized top bar for all windows popup-->
+                    <!--file icon - file name-->
+                    <div class="left">
+                        <div class="panel-icon exp-btn"></div>
+                        <p>Experience</p>
+                    </div>
+                    <!--minimise btn - close btn-->
+                    <div class="right">
+                        <button onclick="closeWindow('exp-panel')"></button>
+                    </div>
+                </div>
+                <!--content box of the exp panel-->
+                <div class="window-content">
+                </div>
+            </div>
+
+            <!--edu popup panel - education-->
+            <div class="popup window" id="edu-panel">
+                <!--top bar of the edu panel-->
+                <div class="window-top-bar" id="edu-panel-header">
+                    <!--standardized top bar for all windows popup-->
+                    <!--file icon - file name-->
+                    <div class="left">
+                        <div class="panel-icon edu-btn"></div>
+                        <p>Education</p>
+                    </div>
+                    <!--minimise btn - close btn-->
+                    <div class="right">
+                        <button onclick="closeWindow('edu-panel')"></button>
+                    </div>
+                </div>
+                <!--content box of the edu panel-->
+                <div class="window-content">
+                </div>
+            </div>
+
+            <!--cert popup panel - awards and certifications-->
+            <div class="popup window" id="cert-panel">
+                <!--top bar of the cert panel-->
+                <div class="window-top-bar" id="cert-panel-header">
+                    <!--standardized top bar for all windows popup-->
+                    <!--file icon - file name-->
+                    <div class="left">
+                        <div class="panel-icon cert-btn"></div>
+                        <p>Awards & Certifications</p>
+                    </div>
+                    <!--minimise btn - close btn-->
+                    <div class="right">
+                        <button onclick="closeWindow('cert-panel')"></button>
+                    </div>
+                </div>
+                <!--content box of the cert panel-->
+                <div class="window-content">
+                </div>
+            </div>
+
+            <!--contact popup panel - contact-->
+            <div class="popup window" id="contact-panel">
+                <!--top bar of the contact panel-->
+                <div class="window-top-bar" id="contact-panel-header">
+                    <!--standardized top bar for all windows popup-->
+                    <!--file icon - file name-->
+                    <div class="left">
+                        <div class="panel-icon contact-btn"></div>
+                        <p>Contact</p>
+                    </div>
+                    <!--minimise btn - close btn-->
+                    <div class="right">
+                        <button onclick="closeWindow('contact-panel')"></button>
+                    </div>
+                </div>
+                <!--content box of the contact panel-->
+                <div class="window-content">
+                </div>
+            </div>
+
+            <!--hobby popup panel - hobby showcase-->
+            <div class="popup window" id="hobby-panel">
+                <!--top bar of the hobby panel-->
+                <div class="window-top-bar" id="hobby-panel-header">
+                    <!--standardized top bar for all windows popup-->
+                    <!--file icon - file name-->
+                    <div class="left">
+                        <div class="panel-icon hobby-btn"></div>
+                        <p>Hobby</p>
+                    </div>
+                    <!--minimise btn - close btn-->
+                    <div class="right">
+                        <button onclick="closeWindow('hobby-panel')"></button>
+                    </div>
+                </div>
+                <!--content box of the hobby panel-->
                 <div class="window-content">
                 </div>
             </div>

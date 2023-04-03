@@ -192,6 +192,8 @@ body {
 .window {
     opacity: 100%;
     transition: none;
+    position: absolute;
+    height: 50%;
 }
 
 @keyframes window-anim {
@@ -219,24 +221,22 @@ body {
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: space-between;
+    cursor: grab;
 }
 
-    .window-top-bar img {
+    .window-top-bar .panel-icon {
         height: 50px;
         aspect-ratio: 1/1;
+        background-color: transparent;
+        background-repeat: no-repeat;
+        background-size: contain;
     }
 
     .window-top-bar p {
         margin: 0;
     }
 
-    .window-top-bar .left {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        flex-wrap: nowrap;
-    }
-
+    .window-top-bar .left,
     .window-top-bar .right {
         display: flex;
         flex-direction: row;
@@ -253,6 +253,7 @@ body {
     background-size: contain;
     border: none;
     border-radius: 6px;
+    cursor: pointer;
 }
 
     .right button:hover {
