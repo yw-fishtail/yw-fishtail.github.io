@@ -96,7 +96,6 @@ for (let i = 0; i < winds.length; i++) {
 
     //detect clicks within window (mouse down on window)
     document.body.addEventListener('mousedown', function (event) {
-
         //if window is clicked
         if (winds[i].contains(event.target)) {
             //check if clicked window is in openedWindows (in case closed windows can be clicked on)
@@ -108,6 +107,15 @@ for (let i = 0; i < winds.length; i++) {
         }
     });
 }
+
+//close the start panel when anywhr else is clicked
+document.body.addEventListener('mousedown', function (event) {
+    let btn = document.getElementById(dict[startPanel.id]);
+    //if startpanel and startbtn are both not clicked
+    if (!startPanel.contains(event.target)) {
+        closeStartPopup();
+    }
+});
 
 //drag logic
 function dragWindow(panel) {
@@ -202,6 +210,16 @@ function toggleStartPopup() {
     }
 }
 
+//close the start panel when anywhr else is clicked
+function closeStartPopup() {
+    if (startPanel.classList.contains("open-popup")) {
+        startPanel.classList.remove("open-popup");
+
+        let btn = document.getElementById(dict[startPanel.id]);
+        btn.checked = false;
+    }
+}
+
 function openWindow(panel) {
 
     let window = document.getElementById(panel);
@@ -213,13 +231,6 @@ function openWindow(panel) {
         window.style.zIndex = openedWindows.length - 1;
 
         btn.checked = true;
-    }
-
-    if (startPanel.classList.contains("open-popup")) {
-        startPanel.classList.remove("open-popup");
-
-        let btn = document.getElementById(dict[startPanel.id]);
-        btn.checked = false;
     }
 }
 
