@@ -16,9 +16,20 @@ const openedWindows = [];
 
 let winds = document.getElementsByClassName("window");
 for (let i = 0; i < winds.length; i++) {
+    //made the windows draggable
     dragWindow(document.getElementById(winds[i].id));
+
+    //detect clicks within window
+    document.body.addEventListener('click', function (event) {
+        if (winds[i].contains(event.target)) {
+            console.log(winds[i].id + " clicked");
+            //when user click on a window to view,
+            //tat window will be set to the highest level of z-index (push to the end of list)
+            //windows nid to be sorted and reassigned a new index
+        }
+    });
 }
-//**todo: prevent draggable window from leaving screen
+
 function dragWindow(panel) {
     var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
 
@@ -142,6 +153,7 @@ function closeWindow(panel) {
         window.classList.remove("open-window");
         btn.checked = false;
         openedWindows.splice(window.style.zIndex, 1);
+        //when openedwindows list changes (removed an item), windows nid to be sorted and reassigned a new index
         window.style.zIndex = -1;
 
         showMostRecentWindow();
