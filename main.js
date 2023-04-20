@@ -38,14 +38,24 @@ function dragWindow(panel) {
     function elementDrag(e) {
         e = e || window.event;
         e.preventDefault();
+        var containerW, containerH, maxX, maxY;
+        containerW = document.getElementById("desktop-screen").clientWidth;
+        containerH = document.getElementById("desktop-screen").clientHeight;
+        maxX = containerW - panel.offsetWidth - 1;
+        maxY = containerH - panel.offsetHeight - 1;
         // calculate the new cursor position:
         pos1 = pos3 - e.clientX;
         pos2 = pos4 - e.clientY;
         pos3 = e.clientX;
         pos4 = e.clientY;
         // set the element's new position:
-        panel.style.top = (panel.offsetTop - pos2) + "px";
-        panel.style.left = (panel.offsetLeft - pos1) + "px";
+        //console.log((elmnt.offsetLeft - pos1), maxY, (elmnt.offsetLeft - pos1), maxX);
+        if ((panel.offsetTop - pos2) <= maxY && (panel.offsetTop - pos2) >= 0) {
+            panel.style.top = (panel.offsetTop - pos2) + "px";
+        }
+        if ((panel.offsetLeft - pos1) <= maxX && (panel.offsetLeft - pos1) >= 0) {
+            panel.style.left = (panel.offsetLeft - pos1) + "px";
+        }
     }
 
     function closeDragElement() {
