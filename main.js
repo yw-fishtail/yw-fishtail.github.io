@@ -10,26 +10,106 @@ var dict = {
     "hobby-panel": "hobby-app"
 }
 
-const openedWindows = [];
+//custom observer pattern for array
+class ObservableArray {
+    constructor(array) {
+        this.array = array;
+        this.callbacks = new Set();
+    }
 
-//make the window class draggable
+    get length() {
+        return this.array.length;
+    }
+
+    push(...items) {
+        const result = this.array.push(...items);
+        this.notifyObservers();
+        return result;
+    }
+
+    pop() {
+        const result = this.array.pop();
+        this.notifyObservers();
+        return result;
+    }
+
+    shift() {
+        const result = this.array.shift();
+        this.notifyObservers();
+        return result;
+    }
+
+    unshift(...items) {
+        const result = this.array.unshift(...items);
+        this.notifyObservers();
+        return result;
+    }
+
+    splice(start, deleteCount, ...items) {
+        const result = this.array.splice(start, deleteCount, ...items);
+        this.notifyObservers();
+        return result;
+    }
+
+    includes(item) {
+        return this.array.includes(item);
+    }
+
+    get(index) {
+        return this.array[index];
+    }
+
+    addObserver(callback) {
+        this.callbacks.add(callback);
+    }
+
+    removeObserver(callback) {
+        this.callbacks.delete(callback);
+    }
+
+    notifyObservers() {
+        for (const callback of this.callbacks) {
+            callback(this.array);
+        }
+    }
+}
+
+function handleArrayChange(array) {
+    for (let i = 0; i < array.length; i++) {
+        document.getElementById(array[i]).style.zIndex = i;
+        //resets the zindex to their index in array
+    }
+}
+
+//array of strings (name of panels opened)
+const openedWindows = new ObservableArray([]);
+
+//every time openWindows gets modified, items zIndex needs to be updated to new index in list
+//observe whenever the array gets modified, handle the change
+openedWindows.addObserver(handleArrayChange);
 
 let winds = document.getElementsByClassName("window");
 for (let i = 0; i < winds.length; i++) {
-    //made the windows draggable
-    dragWindow(document.getElementById(winds[i].id));
 
-    //detect clicks within window
-    document.body.addEventListener('click', function (event) {
+    //made the windows draggable
+    dragWindow(winds[i]);
+
+    //detect clicks within window (mouse down on window)
+    document.body.addEventListener('mousedown', function (event) {
+
+        //if window is clicked
         if (winds[i].contains(event.target)) {
-            console.log(winds[i].id + " clicked");
-            //when user click on a window to view,
-            //tat window will be set to the highest level of z-index (push to the end of list)
-            //windows nid to be sorted and reassigned a new index
+            //check if clicked window is in openedWindows (in case closed windows can be clicked on)
+            if (openedWindows.includes(winds[i].id)) {
+                //selected open window will be removed and pushed into the list agn
+                openedWindows.splice(winds[i].style.zIndex, 1)    //removed from list
+                openedWindows.push(winds[i].id);   //pushed window back into list
+            }
         }
     });
 }
 
+//drag logic
 function dragWindow(panel) {
     var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
 
@@ -60,7 +140,6 @@ function dragWindow(panel) {
         pos3 = e.clientX;
         pos4 = e.clientY;
         // set the element's new position:
-        //console.log((elmnt.offsetLeft - pos1), maxY, (elmnt.offsetLeft - pos1), maxX);
         if ((panel.offsetTop - pos2) <= maxY && (panel.offsetTop - pos2) >= 0) {
             panel.style.top = (panel.offsetTop - pos2) + "px";
         }
@@ -82,17 +161,17 @@ $(document).ready(function () {
 
 //**logic for app selection and toggling is slightly screwed, rmb to fix!
 $('input[type="checkbox"]').change(function () {
-    console.log(this.id);
+    //console.log(this.id);
     let panel = document.getElementById(getKeyByValue(dict, this.id));
 
     if ($(this).is(':checked') && (panel.classList.contains("open-popup") || panel.classList.contains("open-window"))) {
         $('input[type="checkbox"]').not(this).prop('checked', false);
-        console.log("i am true, the rest r false");
+        //console.log("i am true, the rest r false");
     }
 
     if ($(this).not(':checked') && panel.classList.contains("open-window")) {
         $(this).prop('checked', true);
-        console.log("check back the box for opened panel");
+        //console.log("check back the box for opened panel");
     }
 });
 
@@ -103,7 +182,7 @@ function getKeyByValue(object, value) {
 function showMostRecentWindow() {
     if (openedWindows.length <= 0) return;
 
-    var mostRecentWindow = openedWindows[openedWindows.length - 1];
+    var mostRecentWindow = openedWindows.get(openedWindows.length - 1);
     let btn = document.getElementById(dict[mostRecentWindow]);
 
     btn.checked = true;
