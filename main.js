@@ -76,8 +76,8 @@ class ObservableArray {
 
 function handleArrayChange(array) {
     for (let i = 0; i < array.length; i++) {
-        document.getElementById(array[i]).style.zIndex = i;
         //resets the zindex to their index in array
+        document.getElementById(array[i]).style.zIndex = i;
     }
 }
 
@@ -95,7 +95,7 @@ for (let i = 0; i < winds.length; i++) {
     dragWindow(winds[i]);
 
     //detect clicks within window (mouse down on window)
-    document.body.addEventListener('mousedown', function (event) {
+    document.addEventListener('mousedown', function (event) {
         //if window is clicked
         if (winds[i].contains(event.target)) {
             //check if clicked window is in openedWindows (in case closed windows can be clicked on)
@@ -108,11 +108,21 @@ for (let i = 0; i < winds.length; i++) {
     });
 }
 
-//close the start panel when anywhr else is clicked
-document.body.addEventListener('mousedown', function (event) {
-    let btn = document.getElementById(dict[startPanel.id]);
-    //if startpanel and startbtn are both not clicked
+//to close startPanel when mouse down on places !startPanel !apps & when click on any apps
+document.addEventListener('mousedown', function (event) {
+    let apps = document.getElementsByClassName("app");
+    //check if mousedown is not within startpanel
     if (!startPanel.contains(event.target)) {
+
+        //check if mousedown is not within apps
+        for (let i = 0; i < apps.length; i++) {
+            if (!apps[i].contains(event.target)) {
+                continue;
+            }
+            else {
+                return;
+            }
+        }
         closeStartPopup();
     }
 });
@@ -232,6 +242,7 @@ function openWindow(panel) {
 
         btn.checked = true;
     }
+    closeStartPopup();
 }
 
 function closeWindow(panel) {
