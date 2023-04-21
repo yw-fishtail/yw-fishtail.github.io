@@ -103,6 +103,8 @@ for (let i = 0; i < winds.length; i++) {
                 //selected open window will be removed and pushed into the list agn
                 openedWindows.splice(winds[i].style.zIndex, 1)    //removed from list
                 openedWindows.push(winds[i].id);   //pushed window back into list
+
+                //checkMostRecentWindow();
             }
         }
     });
@@ -197,7 +199,7 @@ function getKeyByValue(object, value) {
     return Object.keys(object).find(key => object[key] === value);
 }
 
-function showMostRecentWindow() {
+function checkMostRecentWindow() {
     if (openedWindows.length <= 0) return;
 
     var mostRecentWindow = openedWindows.get(openedWindows.length - 1);
@@ -213,7 +215,7 @@ function toggleStartPopup() {
     if (startPanel.classList.contains("open-popup")) {
         startPanel.classList.remove("open-popup");
 
-        showMostRecentWindow();
+        checkMostRecentWindow();
     }
     else {
         startPanel.classList.add("open-popup");
@@ -227,6 +229,8 @@ function closeStartPopup() {
 
         let btn = document.getElementById(dict[startPanel.id]);
         btn.checked = false;
+
+        checkMostRecentWindow();
     }
 }
 
@@ -254,10 +258,9 @@ function closeWindow(panel) {
         window.classList.remove("open-window");
         btn.checked = false;
         openedWindows.splice(window.style.zIndex, 1);
-        //when openedwindows list changes (removed an item), windows nid to be sorted and reassigned a new index
         window.style.zIndex = -1;
 
-        showMostRecentWindow();
+        checkMostRecentWindow();
     }
 }
 
