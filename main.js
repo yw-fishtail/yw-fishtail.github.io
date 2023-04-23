@@ -101,10 +101,7 @@ for (let i = 0; i < winds.length; i++) {
             //check if clicked window is in openedWindows (in case closed windows can be clicked on)
             if (openedWindows.includes(winds[i].id)) {
                 //selected open window will be removed and pushed into the list agn
-                openedWindows.splice(winds[i].style.zIndex, 1)    //removed from list
-                openedWindows.push(winds[i].id);   //pushed window back into list
-
-                //checkMostRecentWindow();
+                topTheWindow(winds[i]);
             }
         }
     });
@@ -179,24 +176,24 @@ $(document).ready(function () {
     setInterval(printTimeDate, 1000);
 });
 
-//**logic for app selection and toggling is slightly screwed, rmb to fix!
 $('input[type="checkbox"]').change(function () {
-    //console.log(this.id);
-    let panel = document.getElementById(getKeyByValue(dict, this.id));
-
-    if ($(this).is(':checked') && (panel.classList.contains("open-popup") || panel.classList.contains("open-window"))) {
-        $('input[type="checkbox"]').not(this).prop('checked', false);
-        //console.log("i am true, the rest r false");
-    }
-
-    if ($(this).not(':checked') && panel.classList.contains("open-window")) {
-        $(this).prop('checked', true);
-        //console.log("check back the box for opened panel");
-    }
+    updateCheckboxState(this);
 });
 
 function getKeyByValue(object, value) {
     return Object.keys(object).find(key => object[key] === value);
+}
+
+function updateCheckboxState(checkbox) {
+    let panel = document.getElementById(getKeyByValue(dict, checkbox.id));
+
+    if ($(checkbox).is(':checked') && (panel.classList.contains("open-popup") || panel.classList.contains("open-window"))) {
+        $('input[type="checkbox"]').not(checkbox).prop('checked', false);
+    }
+
+    if ($(checkbox).not(':checked') && panel.classList.contains("open-window")) {
+        $(checkbox).prop('checked', true);
+    }
 }
 
 function checkMostRecentWindow() {
@@ -206,6 +203,7 @@ function checkMostRecentWindow() {
     let btn = document.getElementById(dict[mostRecentWindow]);
 
     btn.checked = true;
+    updateCheckboxState(btn);
 }
 
 let startPanel = document.getElementById('start-panel');
@@ -229,9 +227,17 @@ function closeStartPopup() {
 
         let btn = document.getElementById(dict[startPanel.id]);
         btn.checked = false;
+        updateCheckboxState(btn);
 
         checkMostRecentWindow();
     }
+}
+
+function topTheWindow(panel) {
+    //selected open window will be removed and pushed into the list agn
+    openedWindows.splice(panel.style.zIndex, 1)    //removed from list
+    openedWindows.push(panel.id);   //pushed window back into list
+    checkMostRecentWindow();
 }
 
 function openWindow(panel) {
@@ -245,6 +251,10 @@ function openWindow(panel) {
         window.style.zIndex = openedWindows.length - 1;
 
         btn.checked = true;
+        updateCheckboxState(btn);
+    }
+    else {
+        topTheWindow(window);
     }
     closeStartPopup();
 }
@@ -257,6 +267,7 @@ function closeWindow(panel) {
     if (window.classList.contains("open-window")) {
         window.classList.remove("open-window");
         btn.checked = false;
+        updateCheckboxState(btn);
         openedWindows.splice(window.style.zIndex, 1);
         window.style.zIndex = -1;
 
