@@ -281,6 +281,31 @@ function closeWebpg() {
         window.close();
 }
 
+// Get all the tab links and panes
+const tabLinks = document.querySelectorAll('.folder-side-nav a');
+const tabPanes = document.querySelectorAll('.tab-pane');
+
+// Add a click event listener to each tab link
+tabLinks.forEach((link) => {
+    link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const tabId = link.getAttribute('data-tab');
+
+        // Remove the active class from all tab links and panes
+        tabLinks.forEach((link) => {
+            link.classList.remove('active');
+        });
+        tabPanes.forEach((pane) => {
+            pane.classList.remove('active');
+        });
+
+        // Add the active class to the clicked tab link and pane
+        link.classList.add('active');
+        document.getElementById(tabId).classList.add('active');
+    });
+});
+
+
 function printTimeDate() {
     var today = new Date();
 
