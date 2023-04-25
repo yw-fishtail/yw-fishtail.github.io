@@ -1,13 +1,13 @@
 //key:value
 //panel:app
 var dict = {
-    "start-panel": "start-app",
-    "skills-panel": "skills-app",
-    "exp-panel": "exp-app",
-    "edu-panel": "edu-app",
-    "cert-panel": "cert-app",
-    "contact-panel": "contact-app",
-    "hobby-panel": "hobby-app"
+    'start-panel': 'start-app',
+    'skills-panel': 'skills-app',
+    'exp-panel': 'exp-app',
+    'edu-panel': 'edu-app',
+    'cert-panel': 'cert-app',
+    'contact-panel': 'contact-app',
+    'hobby-panel': 'hobby-app'
 }
 
 //custom observer pattern for array
@@ -88,7 +88,7 @@ const openedWindows = new ObservableArray([]);
 //observe whenever the array gets modified, handle the change
 openedWindows.addObserver(handleArrayChange);
 
-let winds = document.getElementsByClassName("window");
+let winds = document.getElementsByClassName('window');
 for (let i = 0; i < winds.length; i++) {
 
     //made the windows draggable
@@ -109,7 +109,7 @@ for (let i = 0; i < winds.length; i++) {
 
 //to close startPanel when mouse down on places !startPanel !apps & when click on any apps
 document.addEventListener('mousedown', function (event) {
-    let apps = document.getElementsByClassName("app");
+    let apps = document.getElementsByClassName('app');
     //check if mousedown is not within startpanel
     if (!startPanel.contains(event.target)) {
 
@@ -130,7 +130,7 @@ document.addEventListener('mousedown', function (event) {
 function dragWindow(panel) {
     var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
 
-    document.getElementById(panel.id + "-header").onmousedown = dragMouseDown;
+    document.getElementById(panel.id + '-header').onmousedown = dragMouseDown;
 
     function dragMouseDown(e) {
         e = e || window.event;
@@ -147,8 +147,8 @@ function dragWindow(panel) {
         e = e || window.event;
         e.preventDefault();
         var containerW, containerH, maxX, maxY;
-        containerW = document.getElementById("desktop-screen").clientWidth;
-        containerH = document.getElementById("desktop-screen").clientHeight;
+        containerW = document.getElementById('desktop-screen').clientWidth;
+        containerH = document.getElementById('desktop-screen').clientHeight;
         maxX = containerW - panel.offsetWidth - 1;
         maxY = containerH - panel.offsetHeight - 1;
         // calculate the new cursor position:
@@ -158,10 +158,10 @@ function dragWindow(panel) {
         pos4 = e.clientY;
         // set the element's new position:
         if ((panel.offsetTop - pos2) <= maxY && (panel.offsetTop - pos2) >= 0) {
-            panel.style.top = (panel.offsetTop - pos2) + "px";
+            panel.style.top = (panel.offsetTop - pos2) + 'px';
         }
         if ((panel.offsetLeft - pos1) <= maxX && (panel.offsetLeft - pos1) >= 0) {
-            panel.style.left = (panel.offsetLeft - pos1) + "px";
+            panel.style.left = (panel.offsetLeft - pos1) + 'px';
         }
     }
 
@@ -176,23 +176,19 @@ $(document).ready(function () {
     setInterval(printTimeDate, 1000);
 });
 
-$('input[type="checkbox"]').change(function () {
-    updateCheckboxState(this);
-});
-
 function getKeyByValue(object, value) {
     return Object.keys(object).find(key => object[key] === value);
 }
 
-function updateCheckboxState(checkbox) {
-    let panel = document.getElementById(getKeyByValue(dict, checkbox.id));
+const navApps = document.querySelectorAll('.apps-container button');
 
-    if ($(checkbox).is(':checked') && (panel.classList.contains("open-popup") || panel.classList.contains("open-window"))) {
-        $('input[type="checkbox"]').not(checkbox).prop('checked', false);
-    }
+function setBtnActive(btn, isActive) {
+    navApps.forEach((app) => {
+        app.classList.remove('active');
+    });
 
-    if ($(checkbox).not(':checked') && panel.classList.contains("open-window")) {
-        $(checkbox).prop('checked', true);
+    if (isActive) {
+        btn.classList.add('active');
     }
 }
 
@@ -201,33 +197,31 @@ function checkMostRecentWindow() {
 
     var mostRecentWindow = openedWindows.get(openedWindows.length - 1);
     let btn = document.getElementById(dict[mostRecentWindow]);
-
-    btn.checked = true;
-    updateCheckboxState(btn);
+    setBtnActive(btn, true);
 }
 
 let startPanel = document.getElementById('start-panel');
 
 //start pop up btn will open and close the start panel
 function toggleStartPopup() {
-    if (startPanel.classList.contains("open-popup")) {
-        startPanel.classList.remove("open-popup");
+    let btn = document.getElementById(dict[startPanel.id]);
 
-        checkMostRecentWindow();
+    if (startPanel.classList.contains('open-popup')) {
+        closeStartPopup();
     }
     else {
-        startPanel.classList.add("open-popup");
+        startPanel.classList.add('open-popup');
+        setBtnActive(btn, true);
     }
 }
 
 //close the start panel when anywhr else is clicked
 function closeStartPopup() {
-    if (startPanel.classList.contains("open-popup")) {
-        startPanel.classList.remove("open-popup");
+    if (startPanel.classList.contains('open-popup')) {
+        startPanel.classList.remove('open-popup');
 
         let btn = document.getElementById(dict[startPanel.id]);
-        btn.checked = false;
-        updateCheckboxState(btn);
+        setBtnActive(btn, false);
 
         checkMostRecentWindow();
     }
@@ -245,13 +239,12 @@ function openWindow(panel) {
     let window = document.getElementById(panel);
     let btn = document.getElementById(dict[panel]);
 
-    if (!window.classList.contains("open-window")) {
-        window.classList.add("open-window");
+    if (!window.classList.contains('open-window')) {
+        window.classList.add('open-window');
         openedWindows.push(panel);
         window.style.zIndex = openedWindows.length - 1;
 
-        btn.checked = true;
-        updateCheckboxState(btn);
+        setBtnActive(btn, true);
     }
     else {
         topTheWindow(window);
@@ -264,10 +257,10 @@ function closeWindow(panel) {
     let window = document.getElementById(panel);
     let btn = document.getElementById(dict[panel]);
 
-    if (window.classList.contains("open-window")) {
-        window.classList.remove("open-window");
-        btn.checked = false;
-        updateCheckboxState(btn);
+    if (window.classList.contains('open-window')) {
+        window.classList.remove('open-window');
+        setBtnActive(btn, false);
+
         openedWindows.splice(window.style.zIndex, 1);
         window.style.zIndex = -1;
 
@@ -276,7 +269,7 @@ function closeWindow(panel) {
 }
 
 function closeWebpg() {
-    let text = "Shut down?"
+    let text = 'Shut down?'
     if (confirm(text) == true)
         window.close();
 }
@@ -316,6 +309,6 @@ function printTimeDate() {
     var yyyy = today.getFullYear();
     var date = dd + '/' + mm + '/' + yyyy;
 
-    document.getElementById("time").innerHTML = time;
-    document.getElementById("date").innerHTML = date;
+    document.getElementById('time').innerHTML = time;
+    document.getElementById('date').innerHTML = date;
 }
