@@ -1,14 +1,4 @@
-//key:value
-//panel:app
-var dict = {
-    'start-panel': 'start-app',
-    'skills-panel': 'skills-app',
-    'exp-panel': 'exp-app',
-    'edu-panel': 'edu-app',
-    'cert-panel': 'cert-app',
-    'contact-panel': 'contact-app',
-    'hobby-panel': 'hobby-app'
-}
+//start custom class
 
 //custom observer pattern for array
 class ObservableArray {
@@ -74,57 +64,121 @@ class ObservableArray {
     }
 }
 
+//end custom class
+
+//start variables
+
+//key:value
+//panel:app
+var dict = {
+    'start-panel': 'start-app',
+    'skills-panel': 'skills-app',
+    'exp-panel': 'exp-app',
+    'edu-panel': 'edu-app',
+    'cert-panel': 'cert-app',
+    'contact-panel': 'contact-app',
+    'hobby-panel': 'hobby-app'
+};
+
+//array of strings (name of panels opened)
+const openedWindows = new ObservableArray([]);
+
+//array of window elements
+const winds = document.getElementsByClassName('window');
+
+//array of buttons in apps-container
+const navApps = document.querySelectorAll('.apps-container button');
+
+//find startpanel element
+const startPanel = document.getElementById('start-panel');
+
+//get all the tab links and panes
+const tabLinks = document.querySelectorAll('.folder-side-nav a');
+const tabPanes = document.querySelectorAll('.tab-pane');
+
+//end variables
+
+//start methods
+
+$(document).ready(function () {
+    initialize();
+});
+
+//init function
+function initialize() {
+    //init update for timedate
+    setInterval(printTimeDate, 1000);
+
+    //every time openWindows gets modified, items zIndex needs to be updated to new index in list
+    //observe whenever the array gets modified, handle the change
+    openedWindows.addObserver(handleArrayChange);
+
+    //make all windows draggable and detect mousedown
+    for (let i = 0; i < winds.length; i++) {
+
+        //made the windows draggable
+        dragWindow(winds[i]);
+
+        //detect clicks within window (mouse down on window)
+        document.addEventListener('mousedown', function (event) {
+            //if window is clicked
+            if (winds[i].contains(event.target)) {
+                //check if clicked window is in openedWindows (in case closed windows can be clicked on)
+                if (openedWindows.includes(winds[i].id)) {
+                    //selected open window will be removed and pushed into the list agn
+                    topTheWindow(winds[i]);
+                }
+            }
+        });
+    }
+
+    //to close startPanel when mouse down on places !startPanel !apps & when click on any apps
+    document.addEventListener('mousedown', function (event) {
+        let apps = document.getElementsByClassName('app');
+        //check if mousedown is not within startpanel
+        if (!startPanel.contains(event.target)) {
+
+            //check if mousedown is not within apps
+            for (let i = 0; i < apps.length; i++) {
+                if (!apps[i].contains(event.target)) {
+                    continue;
+                }
+                else {
+                    return;
+                }
+            }
+            closeStartPopup();
+        }
+    });
+
+    //add a click event listener to each tab link
+    tabLinks.forEach((link) => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const tabId = link.getAttribute('data-tab');
+
+            // Remove the active class from all tab links and panes
+            tabLinks.forEach((link) => {
+                link.classList.remove('active');
+            });
+            tabPanes.forEach((pane) => {
+                pane.classList.remove('active');
+            });
+
+            // Add the active class to the clicked tab link and pane
+            link.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        });
+    });
+}
+
+//called whenever array gets modified
 function handleArrayChange(array) {
     for (let i = 0; i < array.length; i++) {
         //resets the zindex to their index in array
         document.getElementById(array[i]).style.zIndex = i;
     }
 }
-
-//array of strings (name of panels opened)
-const openedWindows = new ObservableArray([]);
-
-//every time openWindows gets modified, items zIndex needs to be updated to new index in list
-//observe whenever the array gets modified, handle the change
-openedWindows.addObserver(handleArrayChange);
-
-let winds = document.getElementsByClassName('window');
-for (let i = 0; i < winds.length; i++) {
-
-    //made the windows draggable
-    dragWindow(winds[i]);
-
-    //detect clicks within window (mouse down on window)
-    document.addEventListener('mousedown', function (event) {
-        //if window is clicked
-        if (winds[i].contains(event.target)) {
-            //check if clicked window is in openedWindows (in case closed windows can be clicked on)
-            if (openedWindows.includes(winds[i].id)) {
-                //selected open window will be removed and pushed into the list agn
-                topTheWindow(winds[i]);
-            }
-        }
-    });
-}
-
-//to close startPanel when mouse down on places !startPanel !apps & when click on any apps
-document.addEventListener('mousedown', function (event) {
-    let apps = document.getElementsByClassName('app');
-    //check if mousedown is not within startpanel
-    if (!startPanel.contains(event.target)) {
-
-        //check if mousedown is not within apps
-        for (let i = 0; i < apps.length; i++) {
-            if (!apps[i].contains(event.target)) {
-                continue;
-            }
-            else {
-                return;
-            }
-        }
-        closeStartPopup();
-    }
-});
 
 //drag logic
 function dragWindow(panel) {
@@ -172,16 +226,12 @@ function dragWindow(panel) {
     }
 }
 
-$(document).ready(function () {
-    setInterval(printTimeDate, 1000);
-});
-
+//helper function to read key by value
 function getKeyByValue(object, value) {
     return Object.keys(object).find(key => object[key] === value);
 }
 
-const navApps = document.querySelectorAll('.apps-container button');
-
+//toggle other btn false when setting a certain one to true
 function setBtnActive(btn, isActive) {
     navApps.forEach((app) => {
         app.classList.remove('active');
@@ -192,6 +242,7 @@ function setBtnActive(btn, isActive) {
     }
 }
 
+//find the most recent window and set its btn to active
 function checkMostRecentWindow() {
     if (openedWindows.length <= 0) return;
 
@@ -199,8 +250,6 @@ function checkMostRecentWindow() {
     let btn = document.getElementById(dict[mostRecentWindow]);
     setBtnActive(btn, true);
 }
-
-let startPanel = document.getElementById('start-panel');
 
 //start pop up btn will open and close the start panel
 function toggleStartPopup() {
@@ -227,6 +276,7 @@ function closeStartPopup() {
     }
 }
 
+//set window as highest layer
 function topTheWindow(panel) {
     //selected open window will be removed and pushed into the list agn
     openedWindows.splice(panel.style.zIndex, 1)    //removed from list
@@ -234,6 +284,7 @@ function topTheWindow(panel) {
     checkMostRecentWindow();
 }
 
+//open certain window and set btn active
 function openWindow(panel) {
 
     let window = document.getElementById(panel);
@@ -252,6 +303,7 @@ function openWindow(panel) {
     closeStartPopup();
 }
 
+//close certain window and set btn inactive
 function closeWindow(panel) {
 
     let window = document.getElementById(panel);
@@ -268,37 +320,14 @@ function closeWindow(panel) {
     }
 }
 
+//prompt to close the portfolio webpg
 function closeWebpg() {
     let text = 'Shut down?'
     if (confirm(text) == true)
         window.close();
 }
 
-// Get all the tab links and panes
-const tabLinks = document.querySelectorAll('.folder-side-nav a');
-const tabPanes = document.querySelectorAll('.tab-pane');
-
-// Add a click event listener to each tab link
-tabLinks.forEach((link) => {
-    link.addEventListener('click', (e) => {
-        e.preventDefault();
-        const tabId = link.getAttribute('data-tab');
-
-        // Remove the active class from all tab links and panes
-        tabLinks.forEach((link) => {
-            link.classList.remove('active');
-        });
-        tabPanes.forEach((pane) => {
-            pane.classList.remove('active');
-        });
-
-        // Add the active class to the clicked tab link and pane
-        link.classList.add('active');
-        document.getElementById(tabId).classList.add('active');
-    });
-});
-
-
+//update display of time and date
 function printTimeDate() {
     var today = new Date();
 
@@ -312,3 +341,5 @@ function printTimeDate() {
     document.getElementById('time').innerHTML = time;
     document.getElementById('date').innerHTML = date;
 }
+
+//end methods
