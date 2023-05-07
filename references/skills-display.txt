@@ -18,6 +18,7 @@
 - Adobe Photoshop
 - Adobe Audition
 - Autodesk Maya
+- Procreate
 
 5) Project Management
 - Azure DevOps
