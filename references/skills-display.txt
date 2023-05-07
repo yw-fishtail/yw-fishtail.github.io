@@ -1,0 +1,26 @@
+1) Game Development
+- Unity
+- C#
+- C++
+
+2) Web Development
+- HTML
+- CSS
+- JS
+
+3) Development Tools
+- Visual Studio
+- Visual Studio Code
+- GitLab
+- GitHub
+
+4) Asset Creation
+- Adobe Photoshop
+- Adobe Audition
+- Autodesk Maya
+
+5) Project Management
+- Azure DevOps
+- Trello
+- Google Workspace
+- Microsoft Office

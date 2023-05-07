@@ -1,0 +1,75 @@
+portfolio
+---------
+
+oldest -> latest
+
+---------
+
+[Ke Tui] Game Prototype Project (Aug 2020)
+--
+School Group Project
+- Developed by a team of 4 using C++
+- First person, virus theme game with AI NPCs
+- Host switching, 4 types of minigames, large roaming area with 2D and 3D sounds
+
+Contribution:
+- Minimap
+- Progress bar
+- Scene management
+- UI menus
+- Audio
+- Minigame - squish the cell
+- Visual effects
+
+---------
+
+AI Assignment 1 (Nov 2020)
+--
+School Individual Assignment
+- Sandbox simulation with different AI entities using finite state machines (FSM)
+- Unique entities with different states of behaviors
+
+---------
+
+[Corruzione] Final Year Project (Nov 2021)
+--
+School Group Project for client [CPIB]
+- Developed by 4 groups of students using Unity
+- 3D cooking simulator with visual novel for WebGL
+
+Contribution
+- Research, playtest, debug
+- Major optimisation
+- Programmed minigames and UI
+- Fixed tons of issues pre-release
+- Modified player controls
+- Audio, lightings, scene management
+- Admin such as documentation, client meetings, version control
+
+---------
+
+[Hope Train Quest] Game for [CCF]
+--
+Youzu Project
+- Developed by a team of developers and artists
+- Quiz game for WebGL
+
+Contribution
+- Conceptualization
+- Development
+- Pre-release bugs-fixing and preparation
+
+---------
+
+AR Indoor Map
+--
+Youzu Project
+- Developing by a team of developers and artists
+- Guide user from starting point to destination with AR markers
+
+Contribution
+- Lead developer, planning and developing the app
+- Managing project timeline and team 
+- Carried out demonstrations and capture feedback from clients
+
+---------
