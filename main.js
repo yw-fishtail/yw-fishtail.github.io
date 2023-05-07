@@ -96,6 +96,10 @@ const startPanel = document.getElementById('start-panel');
 const tabLinks = document.querySelectorAll('.folder-side-nav a');
 const tabPanes = document.querySelectorAll('.tab-pane');
 
+//get loading screen animation, loading div, desktop div
+const loadingAnim = document.querySelector('.progress-bar .fill');
+const loadingScreen = document.querySelector('.loading');
+
 //end variables
 
 //start methods
@@ -169,6 +173,11 @@ function initialize() {
             link.classList.add('active');
             document.getElementById(tabId).classList.add('active');
         });
+    });
+
+    //hide loading screen & show desktop when loading anim is completed
+    loadingAnim.addEventListener("animationend", () => {
+        loadingScreen.style.animation = "fade-out 0.5s normal forwards";
     });
 }
 
