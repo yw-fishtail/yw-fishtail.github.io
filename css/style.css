@@ -136,7 +136,7 @@ body {
     margin: 10px;
     display: flex;
     width: 80px;
-    height: 116px;
+    height: fit-content;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
@@ -262,6 +262,7 @@ body {
     transition: none;
     position: absolute;
     height: 50%;
+    min-height: max-content;
     display: flex;
     flex-direction: column;
 }
@@ -371,7 +372,7 @@ body {
 }
 
 .folder-side-nav {
-    width: 150px;
+    width: 200px;
     height: 100%;
     border-right: 1px solid grey;
 }
@@ -406,8 +407,25 @@ body {
 }
 
     .tab-pane.active {
-        display: block;
+        display: flex;
     }
+
+    .tab-pane button {
+        background-color: transparent;
+        font-family: 'Segoe UI';
+        color: white;
+        cursor: pointer;
+        border: 0px;
+        border-radius: 5px;
+    }
+
+        .tab-pane button:hover {
+            background-color: #606060;
+        }
+
+        .tab-pane button:focus {
+            border: 1px solid dimgrey;
+        }
 
 .open-popup {
     bottom: 15px;
@@ -525,4 +543,76 @@ body {
 
 .hobby-btn {
     background-image: url("../visual_aids/hobbyIcon.png");
+}
+
+.unity-logo {
+    background-image: url("../visual_aids/unityLogo.png");
+}
+
+.csharp-logo {
+    background-image: url("../visual_aids/csharpLogo.png");
+}
+
+.cpp-logo {
+    background-image: url("../visual_aids/cppLogo.png");
+}
+
+.html-logo {
+    background-image: url("../visual_aids/htmlLogo.png");
+}
+
+.css-logo {
+    background-image: url("../visual_aids/cssLogo.png");
+}
+
+.js-logo {
+    background-image: url("../visual_aids/jsLogo.png");
+}
+
+.vs-logo {
+    background-image: url("../visual_aids/vsLogo.png");
+}
+
+.vsc-logo {
+    background-image: url("../visual_aids/vscLogo.png");
+}
+
+.gitlab-logo {
+    background-image: url("../visual_aids/gitlabLogo.png");
+}
+
+.github-logo {
+    background-image: url("../visual_aids/githubLogo.png");
+}
+
+.ps-logo {
+    background-image: url("../visual_aids/psLogo.png");
+}
+
+.au-logo {
+    background-image: url("../visual_aids/auLogo.png");
+}
+
+.maya-logo {
+    background-image: url("../visual_aids/mayaLogo.png");
+}
+
+.procreate-logo {
+    background-image: url("../visual_aids/procreateLogo.png");
+}
+
+.azure-logo {
+    background-image: url("../visual_aids/azureLogo.png");
+}
+
+.trello-logo {
+    background-image: url("../visual_aids/trelloLogo.png");
+}
+
+.google-logo {
+    background-image: url("../visual_aids/googleLogo.png");
+}
+
+.ms-logo {
+    background-image: url("../visual_aids/msLogo.png");
 }
