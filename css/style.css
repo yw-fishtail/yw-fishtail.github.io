@@ -309,29 +309,29 @@ body {
         margin: 0;
     }
 
-    .window-top-bar .left,
-    .window-top-bar .right {
+    .window-top-bar .window-title,
+    .window-top-bar .close {
         display: flex;
         flex-direction: row;
         align-items: center;
         flex-wrap: nowrap;
     }
 
-.right button {
-    height: 50px;
-    aspect-ratio: 1/1;
-    background-image: url("../visual_aids/closeIcon.png");
-    background-color: transparent;
-    background-repeat: no-repeat;
-    background-size: contain;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-}
+        .window-top-bar .close button {
+            height: 50px;
+            aspect-ratio: 1/1;
+            background-image: url("../visual_aids/closeIcon.png");
+            background-color: transparent;
+            background-repeat: no-repeat;
+            background-size: contain;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
 
-    .right button:hover {
-        background-color: #ff3d3d;
-    }
+            .window-top-bar .close button:hover {
+                background-color: #ff3d3d;
+            }
 
 .window-content {
     width: 100%;
@@ -408,6 +408,10 @@ body {
 
     .tab-pane.active {
         display: flex;
+        flex-wrap: wrap;
+        align-content: flex-start;
+        justify-content: flex-start;
+        flex-direction: row;
     }
 
     .tab-pane button {

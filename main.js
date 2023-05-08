@@ -100,6 +100,10 @@ const tabPanes = document.querySelectorAll('.tab-pane');
 const loadingAnim = document.querySelector('.progress-bar .fill');
 const loadingScreen = document.querySelector('.loading');
 
+//get skills panel window-title element and directory-display element
+const skillsTitle = document.querySelector('#skills-panel .window-title p');
+const skillsDirectory = document.querySelector('#skills-panel .directory-display');
+
 //end variables
 
 //start methods
@@ -161,7 +165,7 @@ function initialize() {
             e.preventDefault();
             const tabId = link.getAttribute('data-tab');
 
-            // Remove the active class from all tab links and panes
+            //remove the active class from all tab links and panes
             tabLinks.forEach((link) => {
                 link.classList.remove('active');
             });
@@ -169,9 +173,14 @@ function initialize() {
                 pane.classList.remove('active');
             });
 
-            // Add the active class to the clicked tab link and pane
+            //add the active class to the clicked tab link and pane
             link.classList.add('active');
             document.getElementById(tabId).classList.add('active');
+
+            //set skills panel window-title to active tab name
+            skillsTitle.innerHTML = link.innerHTML;
+            //set directory path to active tab name
+            skillsDirectory.innerHTML = "Skills > " + link.innerHTML;
         });
     });
 
