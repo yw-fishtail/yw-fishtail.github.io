@@ -100,8 +100,7 @@ const tabPanes = document.querySelectorAll('.tab-pane');
 const loadingAnim = document.querySelector('.progress-bar .fill');
 const loadingScreen = document.querySelector('.loading');
 
-//get skills panel window-title element and directory-display element
-const skillsTitle = document.querySelector('#skills-panel .window-title p');
+//get skills panel directory-display element
 const skillsDirectory = document.querySelector('#skills-panel .directory-display');
 
 //end variables
@@ -177,8 +176,6 @@ function initialize() {
             link.classList.add('active');
             document.getElementById(tabId).classList.add('active');
 
-            //set skills panel window-title to active tab name
-            skillsTitle.innerHTML = link.innerHTML;
             //set directory path to active tab name
             skillsDirectory.innerHTML = "Skills > " + link.innerHTML;
         });
