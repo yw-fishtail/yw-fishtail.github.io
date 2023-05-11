@@ -284,9 +284,8 @@ body {
     opacity: 100%;
     transition: none;
     position: absolute;
-    height: 335px;
-    min-width: 330px;
-    max-width: 635px;
+    height: 50%;
+    width: 50%;
     display: flex;
     flex-direction: column;
 }
@@ -307,6 +306,17 @@ body {
     z-index: 10;
     left: 10px;
     max-width: 670px;
+}
+
+#skills-panel {
+    height: 335px;
+    min-width: 330px;
+    max-width: 635px;
+}
+
+#exp-panel{
+    height: 480px;
+    width: 665px;
 }
 
 .window-top-bar {
