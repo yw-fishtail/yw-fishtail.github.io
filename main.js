@@ -215,6 +215,10 @@ function dragWindow(panel) {
     function elementDrag(e) {
         e = e || window.event;
         e.preventDefault();
+
+        //when dragging is happening, disable mouse events for iframe
+        $('.window-content iframe').css('pointer-events', 'none');
+
         var containerW, containerH, maxX, maxY;
         containerW = document.getElementById('desktop-screen').clientWidth;
         containerH = document.getElementById('desktop-screen').clientHeight;
@@ -238,6 +242,9 @@ function dragWindow(panel) {
         // stop moving when mouse button is released:
         document.onmouseup = null;
         document.onmousemove = null;
+
+        //when dragging stops, enable mouse events for iframe
+        $('.window-content iframe').css('pointer-events', 'auto');
     }
 }
 
